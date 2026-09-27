@@ -1,0 +1,23 @@
+# IDE
+.idea/
+.ide/
+.gigaide/
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs / temp
+*.log
+*.tmp
+
+# Task1
+Task1/libraries/
