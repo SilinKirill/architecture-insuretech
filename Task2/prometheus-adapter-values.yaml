@@ -1,0 +1,25 @@
+# prometheus-community/prometheus-adapter 5.3.0
+fullnameOverride: prometheus-adapter
+
+prometheus:
+  url: http://prometheus-server.monitoring.svc
+  port: 80
+
+metricsRelistInterval: 30s
+extraArguments:
+  - --metrics-max-age=2m
+
+rules:
+  default: false
+  custom:
+    - seriesQuery: 'http_requests_total{job="scaletestapp",namespace!="",pod!=""}'
+      resources:
+        overrides:
+          namespace:
+            resource: namespace
+          pod:
+            resource: pod
+      name:
+        matches: "^http_requests_total$"
+        as: http_requests_per_second
+      metricsQuery: 'sum(rate(<<.Series>>{job="scaletestapp",<<.LabelMatchers>>}[1m])) by (<<.GroupBy>>)'
