@@ -1,0 +1,35 @@
+﻿RPS test. Target: 20 requests/second per pod. BEFORE LOAD.
+2026-09-28T22:20:42.9520598+03:00
+NAME               REFERENCE                 TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   0/20      1         10        1          2m58s
+NAME                            READY   STATUS    RESTARTS      AGE
+scaletestapp-7dd77977f6-9qrgh   1/1     Running   1 (14m ago)   53m
+LAST SEEN   TYPE     REASON              OBJECT                                     MESSAGE
+0s          Normal   SuccessfulRescale   horizontalpodautoscaler/scaletestapp-rps   New size: 2; reason: pods metric http_requests_per_second above target
+2026-09-28T22:24:44.9350419+03:00
+NAME               REFERENCE                 TARGETS     MINPODS   MAXPODS   REPLICAS   AGE
+scaletestapp-rps   Deployment/scaletestapp   16556m/20   1         10        2          7m4s
+NAME                            READY   STATUS    RESTARTS      AGE
+scaletestapp-7dd77977f6-9qrgh   1/1     Running   1 (18m ago)   57m
+scaletestapp-7dd77977f6-fcqcg   1/1     Running   0             84s
+Name:                                  scaletestapp-rps
+Namespace:                             default
+Labels:                                <none>
+Annotations:                           <none>
+CreationTimestamp:                     Mon, 28 Sep 2026 22:17:45 +0300
+Reference:                             Deployment/scaletestapp
+Metrics:                               ( current / target )
+  "http_requests_per_second" on pods:  16556m / 20
+Min replicas:                          1
+Max replicas:                          10
+Deployment pods:                       2 current / 2 desired
+Conditions:
+  Type            Status  Reason              Message
+  ----            ------  ------              -------
+  AbleToScale     True    ReadyForNewScale    recommended size matches current size
+  ScalingActive   True    ValidMetricFound    the HPA was able to successfully calculate a replica count from pods metric http_requests_per_second
+  ScalingLimited  False   DesiredWithinRange  the desired count is within the acceptable range
+Events:
+  Type    Reason             Age   From                       Message
+  ----    ------             ----  ----                       -------
+  Normal  SuccessfulRescale  89s   horizontal-pod-autoscaler  New size: 2; reason: pods metric http_requests_per_second above target

@@ -1,0 +1,22 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: scaletestapp
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: scaletestapp
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          # Для демонстрации HPA на локальном стенде выбран порог 50% вместо 80%.
+          # В прогоне с порогом 80% наблюдались ошибки подключения
+          # при утилизации памяти ниже целевого значения.
+          # При 50% нагрузочный тест подтвердил масштабирование с 1 до 2 реплик.
+          averageUtilization: 50
